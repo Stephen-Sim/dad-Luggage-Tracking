@@ -1,0 +1,54 @@
+package my.edu.utem.ftmk.dad.luggagetracking.models;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "CheckPoints")
+public class CheckPoint {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "Name", nullable = false)
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "FlightId", nullable = false)
+    private Flight flight;
+
+    @ManyToOne
+    @JoinColumn(name = "CheckPointTypeId", nullable = false)
+    private CheckPointType checkPointType;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Flight getFlight() {
+		return flight;
+	}
+
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+
+	public CheckPointType getCheckPointType() {
+		return checkPointType;
+	}
+
+	public void setCheckPointType(CheckPointType checkPointType) {
+		this.checkPointType = checkPointType;
+	}
+}
