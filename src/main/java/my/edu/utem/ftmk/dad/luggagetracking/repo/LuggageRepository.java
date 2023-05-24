@@ -7,11 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import my.edu.utem.ftmk.dad.luggagetracking.models.Log;
+import my.edu.utem.ftmk.dad.luggagetracking.models.Luggage;
 
 @Repository
-public interface LogRepository extends JpaRepository<Log, Long> {
-    
-	@Query("SELECT l FROM Log l WHERE l.luggage.id = :luggageId")
-    List<Log> findByLuggageId(@Param("luggageId") long luggageId);
+public interface LuggageRepository extends JpaRepository<Luggage, Long>{
+	@Query("SELECT l FROM Luggage l WHERE l.passengerFlight.id = :passengerFlightId")
+    List<Luggage> findByPassengerFlightId(@Param("passengerFlightId") long passengerFlightId);
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <title>Luggage Tracking</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+    	<div class="card p-5">    	
+	        <h1 class="text-center">Track Your Flight's Luggage(s)</h1>
+	
+			<!-- Display error message if present -->
+	       <div th:if="${errorMessage}" class="alert alert-danger">
+	           <p th:text="${errorMessage}"></p>
+	       </div>
+	       
+	        <form action="#" th:action="@{/home/submitForm}" method="post">
+	            <div class="mb-3">
+	                <label for="identityNo" class="form-label">Passenger Identity No:</label>
+	                <input type="text" id="identityNo" name="identityNo" class="form-control" required/>
+	            </div>
+	
+	            <div class="mb-3">
+	                <label for="flightNo" class="form-label">Flight No:</label>
+	                <input type="text" id="flightNo" name="flightNo" class="form-control" required/>
+	            </div>
+	
+	            <button type="submit" class="btn btn-primary">Submit</button>
+	        </form>
+    	</div>
+    </div>
+</body>
+
+</html>
