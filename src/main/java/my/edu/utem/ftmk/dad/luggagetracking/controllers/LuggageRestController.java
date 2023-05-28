@@ -23,9 +23,21 @@ public class LuggageRestController {
 		this.repo = repo;
 	}
 	
-	@GetMapping("{passengerFlightId}")
+	@GetMapping("passengerFlight/{passengerFlightId}")
 	public List<Luggage> getLuggagesByPassengerFlightId(@PathVariable long passengerFlightId)
 	{
 		return repo.findByPassengerFlightId(passengerFlightId);
+	}
+	
+	@GetMapping("{luggageId}")
+	public Luggage getLuggagesById(@PathVariable long luggageId)
+	{
+		return repo.findById(luggageId).get();
+	}
+	
+	@GetMapping("getLuggageByRFID")
+	public Luggage getLuggageByRFID(String rfid)
+	{
+		return repo.findByRFID(rfid);
 	}
 }

@@ -20,8 +20,8 @@ public class LuggageViewController {
 	@GetMapping("/luggage/{passengerFligthId}")
 	public String index(@PathVariable Integer passengerFligthId, Model model)
 	{
-		// The URI for GET order types
-		String uri = this.url + passengerFligthId.toString();
+		// The URI for GET luggage
+		String uri = this.url + "passengerFlight/" + passengerFligthId.toString();
 		
 		// Get a list order types from the web service
 		RestTemplate restTemplate = new RestTemplate();

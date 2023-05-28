@@ -21,11 +21,11 @@
 	        <h1 class="text-center">Track Your Flight's Luggage(s)</h1>
 	
 			<!-- Display error message if present -->
-	       <div th:if="${errorMessage}" class="alert alert-danger">
-	           <p th:text="${errorMessage}"></p>
-	       </div>
-	       
-	        <form action="#" th:action="@{/home/submitForm}" method="post">
+			<div th:if="${errorMessage}" class="alert alert-danger">
+			    <p th:text="${errorMessage}"></p>
+			</div>
+
+	        <form action="#" th:action="@{/home/submitForm}" method="get">
 	            <div class="mb-3">
 	                <label for="identityNo" class="form-label">Passenger Identity No:</label>
 	                <input type="text" id="identityNo" name="identityNo" class="form-control" required/>

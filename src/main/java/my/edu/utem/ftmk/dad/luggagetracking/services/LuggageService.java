@@ -1,14 +1,12 @@
 package my.edu.utem.ftmk.dad.luggagetracking.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import my.edu.utem.ftmk.dad.luggagetracking.models.Log;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.LuggageRepository;
-import my.edu.utem.ftmk.dad.luggagetracking.repo.LuggageStatusTypeRepository;
 
-@Service
 public class LuggageService {
+	
 	private final LuggageRepository luggageRepo;
 	
 	@Autowired

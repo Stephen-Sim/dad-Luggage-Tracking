@@ -13,4 +13,7 @@ import my.edu.utem.ftmk.dad.luggagetracking.models.Luggage;
 public interface LuggageRepository extends JpaRepository<Luggage, Long>{
 	@Query("SELECT l FROM Luggage l WHERE l.passengerFlight.id = :passengerFlightId")
     List<Luggage> findByPassengerFlightId(@Param("passengerFlightId") long passengerFlightId);
+	
+	@Query("SELECT l FROM Luggage l WHERE l.rfid= :rfid")
+    Luggage findByRFID(@Param("rfid") String rfid);
 }

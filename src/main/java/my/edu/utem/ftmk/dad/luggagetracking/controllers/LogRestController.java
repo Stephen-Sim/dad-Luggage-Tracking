@@ -8,24 +8,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import my.edu.utem.ftmk.dad.luggagetracking.models.Log;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.LogRepository;
-import my.edu.utem.ftmk.dad.luggagetracking.services.LuggageService;
 
 @RestController
 @RequestMapping("api/log")
 public class LogRestController {
 	@Autowired
 	private final LogRepository repo;
-	private final LuggageService luggageService;
 	
-	public LogRestController(LogRepository repo, LuggageService luggageService)
+	public LogRestController(LogRepository repo)
 	{
 		this.repo = repo;
-		this.luggageService = luggageService;
 	}
 	
 	@GetMapping("{luggageId}")
@@ -35,12 +33,11 @@ public class LogRestController {
 	}
 	
 	@PostMapping("/storeLog")
-	public ResponseEntity<HttpStatus> storeLog(Log log)
+	public ResponseEntity<HttpStatus> storeLog(@RequestBody Log log)
 	{
 		try
 		{			
 			repo.save(log);
-			luggageService.updateLuggageStatus(log);
 			
 			return new ResponseEntity<>(HttpStatus.OK);
 		}

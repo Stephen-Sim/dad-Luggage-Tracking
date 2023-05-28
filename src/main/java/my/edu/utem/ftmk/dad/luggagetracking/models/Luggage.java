@@ -14,8 +14,8 @@ public class Luggage {
 
     @ManyToOne
     @JoinColumn(name = "StatusId", nullable = false)
-    private LuggageStatusType status;
-
+    private StatusType status;
+    
     @ManyToOne
     @JoinColumn(name = "PassengerFlightId", nullable = false)
     private PassengerFlight passengerFlight;
@@ -36,14 +36,6 @@ public class Luggage {
 		this.rfid = rfid;
 	}
 
-	public LuggageStatusType getStatus() {
-		return status;
-	}
-
-	public void setStatus(LuggageStatusType status) {
-		this.status = status;
-	}
-
 	public PassengerFlight getPassengerFlight() {
 		return passengerFlight;
 	}
@@ -51,4 +43,13 @@ public class Luggage {
 	public void setPassengerFlight(PassengerFlight passengerFlight) {
 		this.passengerFlight = passengerFlight;
 	}
+
+	public StatusType getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusType status) {
+		this.status = status;
+	}
+
 }

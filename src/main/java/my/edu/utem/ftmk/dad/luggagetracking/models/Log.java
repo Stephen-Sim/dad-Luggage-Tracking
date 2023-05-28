@@ -13,6 +13,10 @@ public class Log {
 
 	@Column(name = "DateTime", nullable = false)
     private LocalDateTime dateTime;
+	
+	@ManyToOne
+    @JoinColumn(name = "StatusId", nullable = false)
+    private StatusType status;
 
     @ManyToOne
     @JoinColumn(name = "LuggageId", nullable = false)
@@ -36,6 +40,14 @@ public class Log {
 
 	public void setDateTime(LocalDateTime dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	public StatusType getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusType status) {
+		this.status = status;
 	}
 
 	public Luggage getLuggage() {
