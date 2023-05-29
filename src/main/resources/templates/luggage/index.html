@@ -34,11 +34,12 @@
                     <td th:text="${row.count}"></td>
                     <td th:text="${luggage.rfid}"></td>
                     <td th:text="${luggage.status.name}"></td>
+                    <input type="hidden" th:value="${luggage.id}" class="luggage-id" />
                     <td>
 	                    <a th:href="@{'../log/' + ${luggage.id}}" class="btn btn-primary">View Tracking</a>
-	                    <a th:if="${luggage.status.id == 4}" href="#" class="btn btn-success">Claim Luggage</a>
-                    	<a th:if="${luggage.status.id == 4}" href="#" class="btn btn-danger">Report Missing</a>
-                    	<a th:if="${luggage.status.id == 7}" href="#" class="btn btn-danger">Report Mishandled</a>
+	                    <a th:if="${luggage.status.id == 4 || luggage.status.id == 6}" class="btn btn-success" id="claimBtn">Claim Luggage</a>
+                    	<a th:if="${luggage.status.id == 4 || luggage.status.id == 6}" class="btn btn-danger" id="reportMissingBtn">Report Missing</a>
+
                 	</td>
                 </tr>
             </tbody>
@@ -48,6 +49,111 @@
         
     </div>
     
+    <!-- Add a modal dialog to confirm luggage claim -->
+	<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="confirmModalLabel">Confirm Luggage Claim</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <p>Are you sure you want to claim the luggage?</p>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+	                <button type="button" class="btn btn-success" id="confirmBtn">Claim Luggage</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- Add a modal dialog to report missing luggage -->
+	<div class="modal fade" id="reportMissingModal" tabindex="-1" role="dialog" aria-labelledby="reportMissingModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="reportMissingModalLabel">Report Missing Luggage</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                <p>Are you sure you want to report the luggage as missing?</p>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+	                <button type="button" class="btn btn-danger" id="reportMissingConfirmBtn">Report Missing</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+    
 </body>
 
+<!-- Add JavaScript code to handle the modal -->
+<script>
+	$(document).ready(function() {
+	    var luggageId = "";
+	    
+	    // Show modal when clicking on the claim luggage button
+	    $('#claimBtn').on('click', function(e) {
+	        e.preventDefault();
+	        
+	        luggageId = $(this).closest('tr').find('.luggage-id').val();
+	        
+	        $('#confirmModal').modal('show');
+	    });
+	    
+	    // Handle confirm action when clicking on the claim button in the modal
+	    $('#confirmModal').on('click', '#confirmBtn', function() {
+	    	
+	    	console.log(luggageId);
+	    	
+	    	$.ajax({
+	            type: 'POST',
+	            url: 'http://localhost:8080/trackingapp/api/luggage/claimLuggage/' + luggageId,
+	            success: function(response) {
+	                // Request successful, refresh the page
+	                location.reload();
+	            },
+	            error: function(xhr, status, error) {
+	                // Handle the error if needed
+	                console.log("Error: " + error);
+	            }
+	        });
+	    	
+	        $('#confirmModal').modal('hide');
+	    });
+	    
+	 // Show modal when clicking on the report missing button
+	    $('#reportMissingBtn').on('click', function(e) {
+	        e.preventDefault();
+	        
+	        luggageId = $(this).closest('tr').find('.luggage-id').val();
+	        
+	        $('#reportMissingModal').modal('show');
+	    });
+	    
+	    // Handle confirm action when clicking on the report missing button in the report missing modal
+	    $('#reportMissingModal').on('click', '#reportMissingConfirmBtn', function() {
+	    	$.ajax({
+	            type: 'POST',
+	            url: 'http://localhost:8080/trackingapp/api/luggage/reportMissing/' + luggageId,
+	            success: function(response) {
+	                // Request successful, refresh the page
+	                location.reload();
+	            },
+	            error: function(xhr, status, error) {
+	                // Handle the error if needed
+	                console.log("Error: " + error);
+	            }
+	        });
+	    	
+	        $('#reportMissingModal').modal('hide');
+	    });
+	});
+</script>
 </html>

@@ -24,7 +24,7 @@
 <body>
     <div class="container mt-5">
     	<div class="card p-5">    	
-	        <h1 class="text-center">Scan the Luggage at Truck Check Point (CP1)</h1>
+	        <h1 class="text-center">Scan the Luggage at Luggage Handling Hub Point (CP2)</h1>
 	
 			<!-- Display message if present -->
 			<div th:if="${message}" class="alert alert-success">
@@ -36,7 +36,7 @@
 			    <p th:text="${errorMessage}"></p>
 			</div>
 
-	        <form action="#" th:action="@{/checkpoint/truck/record}" method="post">
+	        <form action="#" th:action="@{/checkpoint/handlinghub/record}" method="post">
 	            <div class="mb-3">
 	                <label for="checkPointName" class="form-label">Check Point Name:</label>
 	                <input type="text" id="checkPointName" name="checkPointName" class="form-control" required/>

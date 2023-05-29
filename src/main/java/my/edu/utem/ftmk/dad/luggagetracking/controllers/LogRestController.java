@@ -14,16 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import my.edu.utem.ftmk.dad.luggagetracking.models.Log;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.LogRepository;
+import my.edu.utem.ftmk.dad.luggagetracking.services.LuggageService;
 
 @RestController
 @RequestMapping("api/log")
 public class LogRestController {
 	@Autowired
 	private final LogRepository repo;
+	private final LuggageService luggageService;
 	
-	public LogRestController(LogRepository repo)
+	public LogRestController(LogRepository repo, LuggageService luggageService)
 	{
 		this.repo = repo;
+		this.luggageService = luggageService;
 	}
 	
 	@GetMapping("{luggageId}")
@@ -38,6 +41,7 @@ public class LogRestController {
 		try
 		{			
 			repo.save(log);
+			luggageService.updateLuggageStatus(log);
 			
 			return new ResponseEntity<>(HttpStatus.OK);
 		}

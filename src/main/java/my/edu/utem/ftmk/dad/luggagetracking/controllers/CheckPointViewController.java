@@ -24,7 +24,7 @@ public class CheckPointViewController {
 	private final String logUrl = "http://localhost:8080/trackingapp/api/log/";
 	
 	@GetMapping("/checkpoint/truck")
-	public String index()
+	public String indexTruck()
 	{
 		return "checkpoints/truckCheckPoint";
 	}
@@ -40,7 +40,7 @@ public class CheckPointViewController {
 		
 		var checkPoint = getCheckPointByName(checkPointName);
 		
-		if(checkPoint == null)
+		if(checkPoint == null || checkPoint.getCheckPointType().getId() != 2)
         {
         	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Check Point Name");
             return "redirect:/checkpoint/truck";
@@ -78,9 +78,119 @@ public class CheckPointViewController {
         return "redirect:/checkpoint/truck";
 	}
 	
+	@GetMapping("/checkpoint/handlinghub")
+	public String indexHandlingHub()
+	{
+		return "checkpoints/handlingHubCheckPoint";
+	}
+	
+	@PostMapping("/checkpoint/handlinghub/record")
+	public String handlingHubRecord(@RequestParam("checkPointName") String checkPointName, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+	{
+		if (checkPointName.isEmpty() || checkPointName.isEmpty()) {
+            // Set error message
+            redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
+            return "redirect:/checkpoint/handlinghub";
+        }
+		
+		var checkPoint = getCheckPointByName(checkPointName);
+		
+		if(checkPoint == null || checkPoint.getCheckPointType().getId() != 3)
+        {
+        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Check Point Name");
+            return "redirect:/checkpoint/handlinghub";
+        }
+		
+		var luggage = getLuggageByRFID(rfid);
+		
+		if(luggage == null)
+        {
+        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Luggage RFID");
+            return "redirect:/checkpoint/handlinghub";
+        }
+		
+		StatusType status = new StatusType();
+		status.setId(3L);
+		
+		Log log = new Log();
+		log.setDateTime(LocalDateTime.now());
+		log.setCheckPoint(checkPoint);
+		log.setLuggage(luggage);
+		log.setStatus(status);
+		
+		String url = this.logUrl + "/storeLog";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<HttpStatus> reponse = restTemplate.postForEntity(url, log, HttpStatus.class);
+		
+		if (reponse.getStatusCode() != HttpStatus.OK)
+		{
+			redirectAttributes.addFlashAttribute("errorMessage", "Log failed to store. Please try again.");
+            return "redirect:/checkpoint/handlinghub";
+		}
+		
+		redirectAttributes.addFlashAttribute("message", "Log recorded successfully");
+        return "redirect:/checkpoint/handlinghub";
+	}
+	
+	@GetMapping("/checkpoint/claimbay")
+	public String indexClaimBay()
+	{
+		return "checkpoints/claimbayCheckPoint";
+	}
+	
+	@PostMapping("/checkpoint/claimbay/record")
+	public String claimBayRecord(@RequestParam("checkPointName") String checkPointName, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+	{
+		if (checkPointName.isEmpty() || checkPointName.isEmpty()) {
+            // Set error message
+            redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
+            return "redirect:/checkpoint/claimbay";
+        }
+		
+		var checkPoint = getCheckPointByName(checkPointName);
+		
+		if(checkPoint == null || checkPoint.getCheckPointType().getId() != 4)
+        {
+        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Check Point Name");
+            return "redirect:/checkpoint/claimbay";
+        }
+		
+		var luggage = getLuggageByRFID(rfid);
+		
+		if(luggage == null)
+        {
+        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Luggage RFID");
+            return "redirect:/checkpoint/claimbay";
+        }
+		
+		StatusType status = new StatusType();
+		status.setId(4L);
+		
+		Log log = new Log();
+		log.setDateTime(LocalDateTime.now());
+		log.setCheckPoint(checkPoint);
+		log.setLuggage(luggage);
+		log.setStatus(status);
+		
+		String url = this.logUrl + "/storeLog";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<HttpStatus> reponse = restTemplate.postForEntity(url, log, HttpStatus.class);
+		
+		if (reponse.getStatusCode() != HttpStatus.OK)
+		{
+			redirectAttributes.addFlashAttribute("errorMessage", "Log failed to store. Please try again.");
+            return "redirect:/checkpoint/claimbay";
+		}
+		
+		redirectAttributes.addFlashAttribute("message", "Log recorded successfully");
+        return "redirect:/checkpoint/claimbay";
+	}
+	
 	private CheckPoint getCheckPointByName(String name)
 	{
-		String url = checkPointUrl + "/getTruckCheckPointByName?name=" + name;
+		String url = checkPointUrl + "/getCheckPointByName?name=" + name;
 		
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<CheckPoint> response = restTemplate.getForEntity(url, CheckPoint.class);

@@ -38,7 +38,8 @@
 			                <span th:case="4">The luggage is at Passenger Luggage Claim Bay. You may claim your luggage. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
 			                <span th:case="5">The luggage is claimed. </span>
 			                <span th:case="6">The luggage is unclaimed. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
-			                <span th:case="7">The luggage is mishandled to <span th:text="${log.checkPoint.flight.arrivalLocation}"></span> airport. Please do the report.</span>
+			                <span th:case="7">The missing luggage report is made.</span>
+			                <span th:case="8">The luggage is mishandled at <span th:text="${log.checkPoint.flight.arrivalLocation}"></span> airport.</span>
 			            </span>
 			        </td>
 	            </tr>
