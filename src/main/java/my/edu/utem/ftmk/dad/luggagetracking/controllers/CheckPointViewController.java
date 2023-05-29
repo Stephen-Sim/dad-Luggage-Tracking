@@ -211,4 +211,10 @@ public class CheckPointViewController {
 		
 		return luggage;
 	}
+	
+	@GetMapping("/checkpoint/unclaimAndMissing")
+	private String indexUnclaimAndMissing()
+	{
+		return "checkpoints/unclaimAndMissing";
+	}
 }

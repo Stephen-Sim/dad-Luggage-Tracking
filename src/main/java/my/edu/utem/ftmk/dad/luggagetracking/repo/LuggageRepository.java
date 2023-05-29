@@ -16,4 +16,10 @@ public interface LuggageRepository extends JpaRepository<Luggage, Long>{
 	
 	@Query("SELECT l FROM Luggage l WHERE l.rfid= :rfid")
     Luggage findByRFID(@Param("rfid") String rfid);
+	
+	@Query("SELECT l FROM Luggage l WHERE l.passengerFlight.flight.flightNo = :flightNo AND l.status.id = 6")
+	List<Luggage> findUnclaimedLuggage(@Param("flightNo") String flightNo);
+
+	@Query("SELECT l FROM Luggage l WHERE l.passengerFlight.flight.flightNo = :flightNo AND l.status.id = 7")
+	List<Luggage> findMissingLuggage(@Param("flightNo") String flightNo);
 }

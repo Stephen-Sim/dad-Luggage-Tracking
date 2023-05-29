@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <title>Luggage Tracking</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center">Unclaimed / Missing Luggage Center (CP 4)</h1>
+    
+    <!-- Search box and button -->
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search by Fligt No" id="searchBox">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button" id="searchBtn">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <br/>
+    
+    <!-- Unclaimed luggage table -->
+    <h2>Unclaimed Luggage</h2>
+    <table class="table" id="unclaimedTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>RFID</th>
+          <th>Passenger Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Unclaimed luggage rows will be dynamically added here -->
+      </tbody>
+    </table>
+    
+    <br/><br/>
+    
+    <!-- Missing luggage table -->
+    <h2>Missing Luggage</h2>
+    <table class="table" id="missingTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>RFID</th>
+          <th>Passenger Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Missing luggage rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+  
+  <script>
+    $(document).ready(function() {
+      // Function to populate unclaimed luggage table
+      function populateUnclaimedLuggageTable(luggages) {
+        var unclaimedTableBody = $('#unclaimedTable tbody');
+        unclaimedTableBody.empty();
+        
+        $.each(luggages, function(index, luggage) {
+          var row = $('<tr>');
+          row.append($('<td>').text(index + 1));
+          row.append($('<td>').text(luggage.rfid));
+          row.append($('<td>').text(luggage.passengerFlight.passenger.fullName));
+          
+          unclaimedTableBody.append(row);
+        });
+      }
+      
+      // Function to populate missing luggage table
+      function populateMissingLuggageTable(luggages) {
+        var missingTableBody = $('#missingTable tbody');
+        missingTableBody.empty();
+        
+        $.each(luggages, function(index, luggage) {
+          var row = $('<tr>');
+          row.append($('<td>').text(index + 1));
+          row.append($('<td>').text(luggage.rfid));
+          row.append($('<td>').text(luggage.passengerFlight.passenger.fullName));
+          
+          missingTableBody.append(row);
+        });
+      }
+      
+      // Search button click event
+      $('#searchBtn').on('click', function() {
+        var searchQuery = $('#searchBox').val();
+        
+        // Perform the search using AJAX or fetch API
+        // Replace the dummy data below with your actual API call
+        $.ajax({
+          type: 'GET',
+          url: 'http://localhost:8080/trackingapp/api/luggage/missingAndUnclaim?flightNo=' + searchQuery,
+          success: function(response) {
+            // Assuming the response contains separate arrays for unclaimed and missing luggage
+            var unclaimedLuggage = response.unclaimed;
+            var missingLuggage = response.missing;
+            
+            populateUnclaimedLuggageTable(unclaimedLuggage);
+            populateMissingLuggageTable(missingLuggage);
+          },
+          error: function(xhr, status, error) {
+            // Handle the error if needed
+            console.log("Error: " + error);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
