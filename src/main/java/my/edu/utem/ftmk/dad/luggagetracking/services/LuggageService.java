@@ -91,7 +91,7 @@ public class LuggageService {
 	        				logRepo.save(mishandledLog);
 	                    }
 	                }
-	            }, 60000); 
+	            }, 120000); 
 			}
 			
 			luggage.setStatus(status);

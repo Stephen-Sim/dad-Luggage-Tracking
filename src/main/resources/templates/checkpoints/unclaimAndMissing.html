@@ -13,17 +13,25 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  
+  <style>
+  	body {
+	  background-color: #cccccc;
+	}
+  </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1 class="text-center">Unclaimed / Missing Luggage Center (CP 4)</h1>
+  <div class="container mt-5">
+  <div class="card p-5">
+  
+    <h1 class="text-center">Unclaimed / Missing Luggage at Center (CP4)</h1>
     
     <!-- Search box and button -->
     <div class="row">
       <div class="col-md-8 offset-md-2">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Search by Fligt No" id="searchBox">
+          <input type="text" class="form-control" placeholder="Search by Flight No" id="searchBox">
           <div class="input-group-append">
             <button class="btn btn-primary" type="button" id="searchBtn">Search</button>
           </div>
@@ -50,21 +58,23 @@
     
     <br/><br/>
     
-    <!-- Missing luggage table -->
-    <h2>Missing Luggage</h2>
-    <table class="table" id="missingTable">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>RFID</th>
-          <th>Passenger Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Missing luggage rows will be dynamically added here -->
-      </tbody>
-    </table>
+	    <!-- Missing luggage table -->
+	    <h2>Missing Luggage</h2>
+	    <table class="table" id="missingTable">
+	      <thead>
+	        <tr>
+	          <th>#</th>
+	          <th>RFID</th>
+	          <th>Passenger Name</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <!-- Missing luggage rows will be dynamically added here -->
+	      </tbody>
+	    </table>
+	  </div>
   </div>
+  
   
   <script>
     $(document).ready(function() {

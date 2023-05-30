@@ -13,7 +13,6 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-  
   <style>
   	body {
 	  background-color: #cccccc;
@@ -38,8 +37,8 @@
 
 	        <form action="#" th:action="@{/checkpoint/claimbay/record}" method="post">
 	            <div class="mb-3">
-	                <label for="checkPointName" class="form-label">Check Point Name:</label>
-	                <input type="text" id="checkPointName" name="checkPointName" class="form-control" required/>
+	                <label for="flightNo" class="form-label">Flight No:</label>
+	                <input type="text" id="flightNo" name="flightNo" class="form-control" required/>
 	            </div>
 	
 	            <div class="mb-3">

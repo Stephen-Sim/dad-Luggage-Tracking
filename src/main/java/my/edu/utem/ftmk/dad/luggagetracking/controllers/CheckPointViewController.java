@@ -30,19 +30,19 @@ public class CheckPointViewController {
 	}
 	
 	@PostMapping("/checkpoint/truck/record")
-	public String truckRecord(@RequestParam("checkPointName") String checkPointName, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+	public String truckRecord(@RequestParam("flightNo") String flightNo, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
 	{
-		if (checkPointName.isEmpty() || checkPointName.isEmpty()) {
+		if (flightNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
             redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
             return "redirect:/checkpoint/truck";
         }
 		
-		var checkPoint = getCheckPointByName(checkPointName);
+		var checkPoint = getCheckPointByFlightNo(flightNo, 2);
 		
-		if(checkPoint == null || checkPoint.getCheckPointType().getId() != 2)
+		if(checkPoint == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Check Point Name");
+        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Flight No");
             return "redirect:/checkpoint/truck";
         }
 		
@@ -85,19 +85,19 @@ public class CheckPointViewController {
 	}
 	
 	@PostMapping("/checkpoint/handlinghub/record")
-	public String handlingHubRecord(@RequestParam("checkPointName") String checkPointName, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+	public String handlingHubRecord(@RequestParam("flightNo") String flightNo, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
 	{
-		if (checkPointName.isEmpty() || checkPointName.isEmpty()) {
+		if (flightNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
             redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
             return "redirect:/checkpoint/handlinghub";
         }
 		
-		var checkPoint = getCheckPointByName(checkPointName);
+		var checkPoint = getCheckPointByFlightNo(flightNo, 3);
 		
-		if(checkPoint == null || checkPoint.getCheckPointType().getId() != 3)
+		if(checkPoint == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Check Point Name");
+        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Flight No");
             return "redirect:/checkpoint/handlinghub";
         }
 		
@@ -140,19 +140,19 @@ public class CheckPointViewController {
 	}
 	
 	@PostMapping("/checkpoint/claimbay/record")
-	public String claimBayRecord(@RequestParam("checkPointName") String checkPointName, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+	public String claimBayRecord(@RequestParam("flightNo") String flightNo, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
 	{
-		if (checkPointName.isEmpty() || checkPointName.isEmpty()) {
+		if (flightNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
             redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
             return "redirect:/checkpoint/claimbay";
         }
 		
-		var checkPoint = getCheckPointByName(checkPointName);
+		var checkPoint = getCheckPointByFlightNo(flightNo, 4);
 		
-		if(checkPoint == null || checkPoint.getCheckPointType().getId() != 4)
+		if(checkPoint == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Check Point Name");
+        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Flight No");
             return "redirect:/checkpoint/claimbay";
         }
 		
@@ -188,9 +188,9 @@ public class CheckPointViewController {
         return "redirect:/checkpoint/claimbay";
 	}
 	
-	private CheckPoint getCheckPointByName(String name)
+	private CheckPoint getCheckPointByFlightNo(String flightNo, long checkPointTypeId)
 	{
-		String url = checkPointUrl + "/getCheckPointByName?name=" + name;
+		String url = checkPointUrl + "/getCheckPointByFlightNoAndCheckPointTypeId?flightNo=" + flightNo + "&checkPointTypeId=" + checkPointTypeId;
 		
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<CheckPoint> response = restTemplate.getForEntity(url, CheckPoint.class);

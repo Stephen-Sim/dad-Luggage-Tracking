@@ -13,6 +13,11 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <style>
+  	body {
+	  background-color: #cccccc;
+	}
+  </style>
 </head>
 
 <body>
@@ -27,13 +32,13 @@
 
 	        <form action="#" th:action="@{/home/submitForm}" method="get">
 	            <div class="mb-3">
-	                <label for="identityNo" class="form-label">Passenger Identity No:</label>
-	                <input type="text" id="identityNo" name="identityNo" class="form-control" required/>
+	                <label for="flightNo" class="form-label">Flight No:</label>
+	                <input type="text" id="flightNo" name="flightNo" class="form-control" required/>
 	            </div>
 	
 	            <div class="mb-3">
-	                <label for="flightNo" class="form-label">Flight No:</label>
-	                <input type="text" id="flightNo" name="flightNo" class="form-control" required/>
+	                <label for="identityNo" class="form-label">Passenger Identity No:</label>
+	                <input type="text" id="identityNo" name="identityNo" class="form-control" required/>
 	            </div>
 	
 	            <button type="submit" class="btn btn-primary">Submit</button>

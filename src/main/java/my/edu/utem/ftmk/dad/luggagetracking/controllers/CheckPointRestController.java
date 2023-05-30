@@ -19,9 +19,9 @@ public class CheckPointRestController {
 		this.repo = repo;
 	}
 	
-	@GetMapping("getCheckPointByName")
-	public CheckPoint getCheckPointByName(String name)
+	@GetMapping("getCheckPointByFlightNoAndCheckPointTypeId")
+	public CheckPoint getCheckPointByFlightNoAndCheckPointTypeId(String flightNo, long checkPointTypeId)
 	{
-		return repo.findByName(name);
+		return repo.findByFlightNoAndcheckPoinTypetId(flightNo, checkPointTypeId);
 	}
 }

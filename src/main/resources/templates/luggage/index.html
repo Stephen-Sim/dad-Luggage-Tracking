@@ -13,39 +13,46 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <style>
+  	body {
+	  background-color: #cccccc;
+	}
+  </style>
 </head>
 
 <body>
     
-    <div class="container">
-        <h1 class="text-center">Passenger Luggage Information</h1>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>RFID</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="luggage, row : ${luggages}">
-                    <td th:text="${row.count}"></td>
-                    <td th:text="${luggage.rfid}"></td>
-                    <td th:text="${luggage.status.name}"></td>
-                    <input type="hidden" th:value="${luggage.id}" class="luggage-id" />
-                    <td>
-	                    <a th:href="@{'../log/' + ${luggage.id}}" class="btn btn-primary">View Tracking</a>
-	                    <a th:if="${luggage.status.id == 4 || luggage.status.id == 6}" class="btn btn-success" id="claimBtn">Claim Luggage</a>
-                    	<a th:if="${luggage.status.id == 4 || luggage.status.id == 6}" class="btn btn-danger" id="reportMissingBtn">Report Missing</a>
-
-                	</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <a href="javascript:history.back()">Back</a>
+    <div class="container mt-5">
+	    <div class="card p-5">    
+	        <h1 class="text-center">Passenger Luggage Information</h1>
+	
+	        <table class="table">
+	            <thead>
+	                <tr>
+	                    <th>#</th>
+	                    <th>RFID</th>
+	                    <th>Status</th>
+	                    <th>Action</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="luggage, row : ${luggages}">
+	                    <td th:text="${row.count}"></td>
+	                    <td th:text="${luggage.rfid}"></td>
+	                    <td th:text="${luggage.status.name}"></td>
+	                    <input type="hidden" th:value="${luggage.id}" class="luggage-id" />
+	                    <td>
+		                    <a th:href="@{'../log/' + ${luggage.id}}" class="btn btn-primary">View Tracking</a>
+		                    <a th:if="${luggage.status.id == 4 || luggage.status.id == 6}" class="btn btn-success" id="claimBtn">Claim Luggage</a>
+	                    	<a th:if="${luggage.status.id == 4 || luggage.status.id == 6}" class="btn btn-danger" id="reportMissingBtn">Report Missing</a>
+	
+	                	</td>
+	                </tr>
+	            </tbody>
+	        </table>
+	        
+	        <a href="javascript:history.back()">Back</a>
+	    </div>
         
     </div>
     

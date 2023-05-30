@@ -13,41 +13,49 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  <style>
+  	body {
+	  background-color: #cccccc;
+	}
+  </style>
 </head>
 
 <body>
     
-	<div class="container">
-	 	<h1>Tracking Log - <span th:text="${luggage.rfid}"></span></h1>
-	 
-	 	<table class="table">
-	        <thead>
-	            <tr>
-	                <th>Time</th>
-	                <th>Message</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr th:each="log : ${logs}">
-	                <td th:text="${#temporals.format(log.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
-	                <td>
-			            <span th:switch="${log.status.id}">
-			                <span th:case="1">The luggage is dropped off at <span th:text="${log.checkPoint.flight.arrivalLocation}"></span> Airport.</span>
-			                <span th:case="2">The luggage is on truck delivering for the shuttling process. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
-			                <span th:case="3">The luggage is at Luggage Handling Hub and Conveying to Passenger Luggage Claim Bay. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
-			                <span th:case="4">The luggage is at Passenger Luggage Claim Bay. You may claim your luggage. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
-			                <span th:case="5">The luggage is claimed. </span>
-			                <span th:case="6">The luggage is unclaimed. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
-			                <span th:case="7">The missing luggage report is made.</span>
-			                <span th:case="8">The luggage is mishandled at <span th:text="${log.checkPoint.flight.arrivalLocation}"></span> airport.</span>
-			            </span>
-			        </td>
-	            </tr>
-	        </tbody>
-    	</table>
-    	
-    	<a href="javascript:history.back()">Back</a>
+	<div class="container mt-5">
+		<div class="card p-5">
+		 	<h1>Tracking Log - <span th:text="${luggage.rfid}"></span></h1>
+		 
+		 	<table class="table">
+		        <thead>
+		            <tr>
+		                <th>Time</th>
+		                <th>Message</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="log : ${logs}">
+		                <td th:text="${#temporals.format(log.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
+		                <td>
+				            <span th:switch="${log.status.id}">
+				                <span th:case="1">The luggage is dropped off at <span th:text="${log.checkPoint.flight.arrivalLocation}"></span> Airport.</span>
+				                <span th:case="2">The luggage is on truck delivering for the shuttling process. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
+				                <span th:case="3">The luggage is at Luggage Handling Hub and Conveying to Passenger Luggage Claim Bay. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
+				                <span th:case="4">The luggage is at Passenger Luggage Claim Bay. You may claim your luggage. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
+				                <span th:case="5">The luggage is claimed. </span>
+				                <span th:case="6">The luggage is unclaimed. (Check Point : <span th:text="${log.checkPoint.name}"></span>)</span>
+				                <span th:case="7">The missing luggage report is made.</span>
+				                <span th:case="8">The luggage is mishandled at <span th:text="${log.checkPoint.flight.arrivalLocation}"></span> airport.</span>
+				            </span>
+				        </td>
+		            </tr>
+		        </tbody>
+	    	</table>
+	    	
+	    	<a href="javascript:history.back()">Back</a>
+		</div>
 	</div>
+	
     
 </body>
 
