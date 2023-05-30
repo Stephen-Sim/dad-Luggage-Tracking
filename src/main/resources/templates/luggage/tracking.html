@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0" />
+  <title>Luggage Tracking</title>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  
+  <style>
+  	body {
+	  background-color: #cccccc;
+	}
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="card p-5">
+      <h1 class="text-center">Luggage Tracking</h1>
+    
+      <!-- Search box and button -->
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search by Flight No" id="searchBox">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" id="searchBtn">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <br/>
+    
+      <!-- Tracking and mishandled luggage tables -->
+      <h2>Tracking Information</h2>
+      <table class="table" id="trackingTable">
+        <thead>
+          <tr>
+          	<th>#</th>
+            <th>RFID</th>
+            <th>CheckPoint 1</th>
+            <th>CheckPoint 2</th>
+            <th>CheckPoint 3</th>
+            <th>CheckPoint 4</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Tracking rows will be dynamically added here -->
+        </tbody>
+      </table>
+    
+      <br/><br/>
+    
+      <h2>Mishandled Luggage</h2>
+      <table class="table" id="mishandledTable">
+        <thead>
+          <tr>
+          	<th>#</th>
+            <th>RFID</th>
+            <th>Date/Time</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Mishandled luggage rows will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script>
+    $(document).ready(function() {
+      // Function to populate tracking information table
+      function populateTrackingTable(trackingInfo) {
+        var trackingTableBody = $('#trackingTable tbody');
+        trackingTableBody.empty();
+        
+        $.each(trackingInfo, function(index, info) {
+          var row = $('<tr>');
+          row.append($('<td>').text(index + 1));
+          row.append($('<td>').text(info.RFID));
+          row.append($('<td>').text(formatDateTime(info.cp1)));
+          row.append($('<td>').text(formatDateTime(info.cp2)));
+          row.append($('<td>').text(formatDateTime(info.cp3)));
+          row.append($('<td>').text(formatDateTime(info.cp4)));
+          row.append($('<td>').text(info.status));
+          
+          trackingTableBody.append(row);
+        });
+      }
+      
+      // Function to populate mishandled luggage table
+      function populateMishandledTable(mishandledLuggage) {
+        var mishandledTableBody = $('#mishandledTable tbody');
+        mishandledTableBody.empty();
+        
+        $.each(mishandledLuggage, function(index, luggage) {
+          var row = $('<tr>');
+          row.append($('<td>').text(index + 1));
+          row.append($('<td>').text(luggage.RFID));
+          row.append($('<td>').text(formatDateTime(luggage.DateTime)));
+          row.append($('<td>').text(luggage.message));
+          
+          mishandledTableBody.append(row);
+        });
+      }
+      
+      // Function to format datetime
+      function formatDateTime(dateTime) {
+        if (dateTime === null) {
+            return;
+        }
+        
+        var date = new Date(dateTime);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+
+        // Add leading zeros if necessary
+        day = (day < 10) ? '0' + day : day;
+        month = (month < 10) ? '0' + month : month;
+        hours = (hours < 10) ? '0' + hours : hours;
+        minutes = (minutes < 10) ? '0' + minutes : minutes;
+
+        var formattedDateTime = day + '-' + month + '-' + year + ' ' + hours + ':' + minutes;
+        return formattedDateTime;
+      }
+      
+      // Search button click event
+      $('#searchBtn').on('click', function() {
+        var searchQuery = $('#searchBox').val();
+        
+        // Perform the search using AJAX or fetch API
+        // Replace the dummy data below with your actual API call
+        $.ajax({
+          type: 'GET',
+          url: 'http://localhost:8080/trackingapp/api/luggage/tracking?flightNo=' + searchQuery,
+          success: function(response) {
+            var trackingInfo = response.tracking;
+            var mishandledLuggage = response.mishandled;
+            
+            populateTrackingTable(trackingInfo);
+            populateMishandledTable(mishandledLuggage);
+          },
+          error: function(xhr, status, error) {
+            // Handle the error if needed
+            console.log("Error: " + error);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

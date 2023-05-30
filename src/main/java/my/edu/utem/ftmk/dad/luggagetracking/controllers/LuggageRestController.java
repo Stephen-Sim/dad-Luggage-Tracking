@@ -1,5 +1,6 @@
 package my.edu.utem.ftmk.dad.luggagetracking.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,5 +119,42 @@ public class LuggageRestController {
 	        e.printStackTrace();
 	        return ResponseEntity.badRequest().build();
 	    }
+	}
+	
+	@GetMapping("/tracking")
+	public ResponseEntity<Map<String, List<Map<String, Object>>>> getLuggageCheckPointTimeByFlightNo(String flightNo) {
+	    List<Object[]> logTracking = repo.findLugageCheckPointTimeByFlightNo(flightNo);
+	    
+	    List<Map<String, Object>> responseList = new ArrayList<>();
+
+	    for (Object[] result : logTracking) {
+	        Map<String, Object> resultMap = new HashMap<>();
+	        resultMap.put("RFID", result[0]);
+	        resultMap.put("cp1", result[1]);
+	        resultMap.put("cp2", result[2]);
+	        resultMap.put("cp3", result[3]);
+	        resultMap.put("cp4", result[4]);
+	        resultMap.put("status", result[5]);
+	        responseList.add(resultMap);
+	    }
+	    
+	    List<Object[]> mishandledLuggage = repo.findMishandledLuggage(flightNo);
+	    
+	    Map<String, List<Map<String, Object>>> results = new HashMap<>();
+	    results.put("tracking", responseList);
+	    
+	    List<Map<String, Object>> mishandledList = new ArrayList<>();
+	    
+	    for (Object[] result : mishandledLuggage) {
+	        Map<String, Object> mishandledMap = new HashMap<>();
+	        mishandledMap.put("RFID", result[0]);
+	        mishandledMap.put("DateTime", result[1]);
+	        mishandledMap.put("message", "The luggage is mishandled at " + result[3] + " (" + result[2] + ").");
+	        mishandledList.add(mishandledMap);
+	    }
+	    
+	    results.put("mishandled", mishandledList);
+
+	    return ResponseEntity.ok(results);
 	}
 }

@@ -37,4 +37,9 @@ public class LuggageViewController {
 		
 		return "luggage/index";
 	}
+	
+	@GetMapping("luggage/tracking")
+	public String indexTracking(){
+		return "luggage/tracking";
+	}
 }
