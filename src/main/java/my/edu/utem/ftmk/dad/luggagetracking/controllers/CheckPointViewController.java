@@ -78,6 +78,12 @@ public class CheckPointViewController {
         return "redirect:/checkpoint/truck";
 	}
 	
+	
+	/**
+	 * This method displays handlingHubCheckPoint.html
+	 * 
+	 * @return A web page
+	 */
 	@GetMapping("/checkpoint/handlinghub")
 	public String indexHandlingHub()
 	{
@@ -85,14 +91,20 @@ public class CheckPointViewController {
 	}
 	
 	@PostMapping("/checkpoint/handlinghub/record")
-	public String handlingHubRecord(@RequestParam("flightNo") String flightNo, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+	public String handlingHubRecord(@RequestParam("flightNo") String flightNo, 
+			@RequestParam("rfid") String rfid, 
+			RedirectAttributes redirectAttributes)
 	{
+		
+		
+		// Validate parameters
 		if (flightNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
             redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
             return "redirect:/checkpoint/handlinghub";
         }
 		
+		// Validate flight number
 		var checkPoint = getCheckPointByFlightNo(flightNo, 3);
 		
 		if(checkPoint == null)
@@ -101,6 +113,7 @@ public class CheckPointViewController {
             return "redirect:/checkpoint/handlinghub";
         }
 		
+		// Validate flight lugage RFID
 		var luggage = getLuggageByRFID(rfid);
 		
 		if(luggage == null)

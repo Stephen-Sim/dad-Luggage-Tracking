@@ -34,24 +34,50 @@ public class LuggageRestController {
 		this.logService = logService;
 	}
 	
+	
+	/**
+	 * Retrieves the list of luggages associated with a passenger flight ID.
+	 * 
+	 * @param passengerFlightId
+	 * @return
+	 */
 	@GetMapping("passengerFlight/{passengerFlightId}")
-	public List<Luggage> getLuggagesByPassengerFlightId(@PathVariable long passengerFlightId)
+	public List<Luggage> getLuggagesByPassengerFlightId
+		(@PathVariable long passengerFlightId)
 	{
 		return repo.findByPassengerFlightId(passengerFlightId);
 	}
 	
+	/**
+	 * Retrieves a luggage by its ID.
+	 * 
+	 * @param luggageId
+	 * @return
+	 */
 	@GetMapping("{luggageId}")
 	public Luggage getLuggagesById(@PathVariable long luggageId)
 	{
 		return repo.findById(luggageId).get();
 	}
 	
+	/**
+	 * Retrieves a luggage by its RFID.
+	 * 
+	 * @param rfid
+	 * @return
+	 */
 	@GetMapping("getLuggageByRFID")
 	public Luggage getLuggageByRFID(String rfid)
 	{
 		return repo.findByRFID(rfid);
 	}
 	
+	/**
+	 * Claims a luggage by updating its status and creating a log entry.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@PostMapping("/claimLuggage/{id}")
     public ResponseEntity<String> claimLuggage(@PathVariable long id) {
         
@@ -72,10 +98,17 @@ public class LuggageRestController {
 		} 
 		catch(Exception err) {
 			
-			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail to claim");
+			 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					 .body("Fail to claim");
 		}
     }
 	
+	/**
+	 * Reports a luggage as missing by updating its status and creating a log entry.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@PostMapping("/reportMissing/{id}")
     public ResponseEntity<String> reportMissing(@PathVariable long id) {
         
@@ -96,12 +129,20 @@ public class LuggageRestController {
 		} 
 		catch(Exception err) {
 			
-			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fail to claim");
+			 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					 .body("Fail to claim");
 		}
     }
 	
+	/**
+	 * Searches for missing and unclaimed luggage based on the flight number.
+	 * 
+	 * @param flightNo
+	 * @return
+	 */
 	@GetMapping("/missingAndUnclaim")
-	public ResponseEntity<Map<String, List<Luggage>>> searchLuggage(@RequestParam("flightNo") String flightNo) {
+	public ResponseEntity<Map<String, List<Luggage>>> searchLuggage
+		(@RequestParam("flightNo") String flightNo) {
 	    if (flightNo == null || flightNo.isEmpty()) {
 	        return ResponseEntity.badRequest().build();
 	    }
@@ -121,9 +162,17 @@ public class LuggageRestController {
 	    }
 	}
 	
+	/**
+	 * Retrieves the tracking information for luggage based on the flight number.
+	 * 
+	 * @param flightNo
+	 * @return
+	 */
 	@GetMapping("/tracking")
-	public ResponseEntity<Map<String, List<Map<String, Object>>>> getLuggageCheckPointTimeByFlightNo(String flightNo) {
-	    List<Object[]> logTracking = repo.findLugageCheckPointTimeByFlightNo(flightNo);
+	public ResponseEntity<Map<String, List<Map<String, Object>>>> getLuggageCheckPointTimeByFlightNo
+		(String flightNo) {
+	    List<Object[]> logTracking = repo
+	    		.findLugageCheckPointTimeByFlightNo(flightNo);
 	    
 	    List<Map<String, Object>> responseList = new ArrayList<>();
 
@@ -149,7 +198,8 @@ public class LuggageRestController {
 	        Map<String, Object> mishandledMap = new HashMap<>();
 	        mishandledMap.put("RFID", result[0]);
 	        mishandledMap.put("DateTime", result[1]);
-	        mishandledMap.put("message", "The luggage is mishandled at " + result[3] + " (" + result[2] + ").");
+	        mishandledMap.put("message", "The luggage is mishandled at " 
+	        		+ result[3] + " (" + result[2] + ").");
 	        mishandledList.add(mishandledMap);
 	    }
 	    

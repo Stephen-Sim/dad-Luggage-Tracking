@@ -29,18 +29,28 @@ public class LogRestController {
 		this.luggageService = luggageService;
 	}
 	
+	/*
+	 * get the list of logs by the luggage id
+	 * 
+	 * */
 	@GetMapping("{luggageId}")
 	public List<Log> getLogsByLuggageId(@PathVariable long luggageId)
 	{
 		return repo.findByLuggageId(luggageId);
 	}
 	
+	/*
+	 * store the log to the database
+	 * 
+	 * */
 	@PostMapping("/storeLog")
 	public ResponseEntity<HttpStatus> storeLog(@RequestBody Log log)
 	{
 		try
 		{			
 			repo.save(log);
+			
+			// to update the luggage status
 			luggageService.updateLuggageStatus(log);
 			
 			return new ResponseEntity<>(HttpStatus.OK);
