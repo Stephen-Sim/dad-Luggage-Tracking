@@ -20,6 +20,14 @@ public class PassengerFlightRestController {
 		this.repo = repo;
 	}
 	
+	/**
+	 *  Method : GET
+	 * Retrieves the tracking information for luggage based on the flight number.
+	 * 
+	 * @param identityNo
+	 * @param flightNo
+	 * @return
+	 */
 	@GetMapping("/getPassengerFlight")
 	public PassengerFlight getPassengerFlightByIdentityNoAndFlightNo(String identityNo, String flightNo)
 	{

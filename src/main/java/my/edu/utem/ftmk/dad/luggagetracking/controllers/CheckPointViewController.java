@@ -90,6 +90,11 @@ public class CheckPointViewController {
 		return "checkpoints/handlingHubCheckPoint";
 	}
 	
+	/**
+	 * This method checks the input of handlinghub
+	 * 
+	 * @return A web page
+	 */
 	@PostMapping("/checkpoint/handlinghub/record")
 	public String handlingHubRecord(@RequestParam("flightNo") String flightNo, 
 			@RequestParam("rfid") String rfid, 

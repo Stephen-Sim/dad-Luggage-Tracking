@@ -38,6 +38,11 @@ public class LuggageViewController {
 		return "luggage/index";
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
 	@GetMapping("luggage/tracking")
 	public String indexTracking(){
 		return "luggage/tracking";

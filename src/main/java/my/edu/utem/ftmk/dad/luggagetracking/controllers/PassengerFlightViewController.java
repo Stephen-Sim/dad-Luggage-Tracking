@@ -19,6 +19,14 @@ public class PassengerFlightViewController {
 		return "home/index";
 	}
 	
+	/**
+	 *  checks the form input
+	 * 
+	 * @param identityNo
+	 * @param flightNo
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@GetMapping("/home/submitForm")
 	public String getLuggagesByPassengerNationalityAndFlightNo(@RequestParam("identityNo") String identityNo, @RequestParam("flightNo") String flightNo, RedirectAttributes redirectAttributes)
 	{
