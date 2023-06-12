@@ -17,11 +17,11 @@ public class LuggageViewController {
 	
 	private final String url = "http://localhost:8080/trackingapp/api/luggage/";
 	
-	@GetMapping("/luggage/{passengerFligthId}")
-	public String index(@PathVariable Integer passengerFligthId, Model model)
+	@GetMapping("/luggage/{passengerFlightId}")
+	public String index(@PathVariable Integer passengerFlightId, Model model)
 	{
 		// The URI for GET luggage
-		String uri = this.url + "passengerFlight/" + passengerFligthId.toString();
+		String uri = this.url + "passengerFlight/" + passengerFlightId.toString();
 		
 		// Get a list order types from the web service
 		RestTemplate restTemplate = new RestTemplate();
@@ -39,7 +39,7 @@ public class LuggageViewController {
 	}
 	
 	/**
-	 * 
+	 * redirect to luggage/tracking.html
 	 * 
 	 * @return
 	 */
