@@ -104,7 +104,8 @@ public class LuggageRestController {
     }
 	
 	/**
-	 * Reports a luggage as missing by updating its status and creating a log entry.
+	 * Reports a luggage as missing by updating its status and 
+	 * creating a log entry.
 	 * 
 	 * @param id
 	 * @return
@@ -169,10 +170,11 @@ public class LuggageRestController {
 	 * @return
 	 */
 	@GetMapping("/tracking")
-	public ResponseEntity<Map<String, List<Map<String, Object>>>> getLuggageCheckPointTimeByFlightNo
-		(String flightNo) {
+	public ResponseEntity<Map<String, List<Map<String, Object>>>> 
+		getLuggageCheckPointTimeByFlightNo(String flightNo) {
+		
 	    List<Object[]> logTracking = repo
-	    		.findLugageCheckPointTimeByFlightNo(flightNo);
+	    		.findLuggageCheckPointTimeByFlightNo(flightNo);
 	    
 	    List<Map<String, Object>> responseList = new ArrayList<>();
 

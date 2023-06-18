@@ -29,7 +29,8 @@ public class LogService {
 		
 		Log mishandledLog = new Log();
 		mishandledLog.setDateTime(LocalDateTime.now());
-		mishandledLog.setCheckPoint(checkPointRepo.findCP4ByFlightId(luggage.getPassengerFlight().getFlight().getId()));
+		mishandledLog.setCheckPoint(checkPointRepo.findCP4ByFlightId(luggage
+				.getPassengerFlight().getFlight().getId()));
 		mishandledLog.setLuggage(luggage);
 		mishandledLog.setStatus(status);
 		
@@ -43,7 +44,8 @@ public class LogService {
 		
 		Log mishandledLog = new Log();
 		mishandledLog.setDateTime(LocalDateTime.now());
-		mishandledLog.setCheckPoint(checkPointRepo.findCP4ByFlightId(luggage.getPassengerFlight().getFlight().getId()));
+		mishandledLog.setCheckPoint(checkPointRepo.findCP4ByFlightId(luggage
+				.getPassengerFlight().getFlight().getId()));
 		mishandledLog.setLuggage(luggage);
 		mishandledLog.setStatus(status);
 		

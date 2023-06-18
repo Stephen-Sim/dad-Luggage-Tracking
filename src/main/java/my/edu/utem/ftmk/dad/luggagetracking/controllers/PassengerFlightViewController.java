@@ -28,23 +28,31 @@ public class PassengerFlightViewController {
 	 * @return
 	 */
 	@GetMapping("/home/submitForm")
-	public String getLuggagesByPassengerNationalityAndFlightNo(@RequestParam("identityNo") String identityNo, @RequestParam("flightNo") String flightNo, RedirectAttributes redirectAttributes)
+	public String getLuggagesByPassengerNationalityAndFlightNo
+		(@RequestParam("identityNo") String identityNo, 
+				@RequestParam("flightNo") String flightNo, 
+				RedirectAttributes redirectAttributes)
 	{
 		// Validate form data
         if (identityNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
-            redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
+            redirectAttributes.addFlashAttribute("errorMessage", 
+            		"Please fill in all fields.");
             return "redirect:/home";
         }
         
-        String url = this.url + "/getPassengerFlight?identityNo=" + identityNo + "&flightNo=" + flightNo;
+        String url = this.url + "/getPassengerFlight?identityNo=" 
+        		+ identityNo + "&flightNo=" + flightNo;
 		
 		RestTemplate restTemplate = new RestTemplate();
-		var passengerFlight = restTemplate.getForObject(url, PassengerFlight.class);
+		var passengerFlight = restTemplate
+				.getForObject(url, PassengerFlight.class);
         
         if(passengerFlight == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid flight or passenger information.");
+        	redirectAttributes
+        		.addFlashAttribute("errorMessage", 
+        				"Invalid flight or passenger information.");
             return "redirect:/home";
         }
 		

@@ -30,11 +30,13 @@ public class CheckPointViewController {
 	}
 	
 	@PostMapping("/checkpoint/truck/record")
-	public String truckRecord(@RequestParam("flightNo") String flightNo, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+	public String truckRecord(@RequestParam("flightNo") String flightNo, 
+			@RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
 	{
 		if (flightNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
-            redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
+            redirectAttributes.addFlashAttribute("errorMessage", 
+            		"Please fill in all fields.");
             return "redirect:/checkpoint/truck";
         }
 		
@@ -42,7 +44,8 @@ public class CheckPointViewController {
 		
 		if(checkPoint == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Flight No");
+        	redirectAttributes.addFlashAttribute("errorMessage", 
+        			"Invalid Flight No");
             return "redirect:/checkpoint/truck";
         }
 		
@@ -50,7 +53,8 @@ public class CheckPointViewController {
 		
 		if(luggage == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Luggage RFID");
+        	redirectAttributes.addFlashAttribute("errorMessage", 
+        			"Invalid Luggage RFID");
             return "redirect:/checkpoint/truck";
         }
 		
@@ -66,15 +70,18 @@ public class CheckPointViewController {
 		String url = this.logUrl + "/storeLog";
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<HttpStatus> reponse = restTemplate.postForEntity(url, log, HttpStatus.class);
+		ResponseEntity<HttpStatus> reponse = restTemplate
+				.postForEntity(url, log, HttpStatus.class);
 		
 		if (reponse.getStatusCode() != HttpStatus.OK)
 		{
-			redirectAttributes.addFlashAttribute("errorMessage", "Log failed to store. Please try again.");
+			redirectAttributes.addFlashAttribute("errorMessage", 
+					"Log failed to store. Please try again.");
             return "redirect:/checkpoint/truck";
 		}
 		
-		redirectAttributes.addFlashAttribute("message", "Log recorded successfully");
+		redirectAttributes.addFlashAttribute("message", 
+				"Log recorded successfully");
         return "redirect:/checkpoint/truck";
 	}
 	
@@ -105,7 +112,8 @@ public class CheckPointViewController {
 		// Validate parameters
 		if (flightNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
-            redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
+            redirectAttributes.addFlashAttribute("errorMessage", 
+            		"Please fill in all fields.");
             return "redirect:/checkpoint/handlinghub";
         }
 		
@@ -114,7 +122,8 @@ public class CheckPointViewController {
 		
 		if(checkPoint == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Flight No");
+        	redirectAttributes.addFlashAttribute("errorMessage", 
+        			"Invalid Flight No");
             return "redirect:/checkpoint/handlinghub";
         }
 		
@@ -123,7 +132,8 @@ public class CheckPointViewController {
 		
 		if(luggage == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Luggage RFID");
+        	redirectAttributes.addFlashAttribute("errorMessage", 
+        			"Invalid Luggage RFID");
             return "redirect:/checkpoint/handlinghub";
         }
 		
@@ -139,15 +149,18 @@ public class CheckPointViewController {
 		String url = this.logUrl + "/storeLog";
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<HttpStatus> reponse = restTemplate.postForEntity(url, log, HttpStatus.class);
+		ResponseEntity<HttpStatus> reponse = restTemplate.postForEntity(url, 
+				log, HttpStatus.class);
 		
 		if (reponse.getStatusCode() != HttpStatus.OK)
 		{
-			redirectAttributes.addFlashAttribute("errorMessage", "Log failed to store. Please try again.");
+			redirectAttributes.addFlashAttribute("errorMessage", 
+					"Log failed to store. Please try again.");
             return "redirect:/checkpoint/handlinghub";
 		}
 		
-		redirectAttributes.addFlashAttribute("message", "Log recorded successfully");
+		redirectAttributes.addFlashAttribute("message", 
+				"Log recorded successfully");
         return "redirect:/checkpoint/handlinghub";
 	}
 	
@@ -158,11 +171,13 @@ public class CheckPointViewController {
 	}
 	
 	@PostMapping("/checkpoint/claimbay/record")
-	public String claimBayRecord(@RequestParam("flightNo") String flightNo, @RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+	public String claimBayRecord(@RequestParam("flightNo") String flightNo, 
+			@RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
 	{
 		if (flightNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
-            redirectAttributes.addFlashAttribute("errorMessage", "Please fill in all fields.");
+            redirectAttributes.addFlashAttribute("errorMessage", 
+            		"Please fill in all fields.");
             return "redirect:/checkpoint/claimbay";
         }
 		
@@ -170,7 +185,8 @@ public class CheckPointViewController {
 		
 		if(checkPoint == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Flight No");
+        	redirectAttributes.addFlashAttribute("errorMessage", 
+        			"Invalid Flight No");
             return "redirect:/checkpoint/claimbay";
         }
 		
@@ -178,7 +194,8 @@ public class CheckPointViewController {
 		
 		if(luggage == null)
         {
-        	redirectAttributes.addFlashAttribute("errorMessage", "Invalid Luggage RFID");
+        	redirectAttributes.addFlashAttribute("errorMessage", 
+        			"Invalid Luggage RFID");
             return "redirect:/checkpoint/claimbay";
         }
 		
@@ -194,24 +211,30 @@ public class CheckPointViewController {
 		String url = this.logUrl + "/storeLog";
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<HttpStatus> reponse = restTemplate.postForEntity(url, log, HttpStatus.class);
+		ResponseEntity<HttpStatus> reponse = restTemplate
+				.postForEntity(url, log, HttpStatus.class);
 		
 		if (reponse.getStatusCode() != HttpStatus.OK)
 		{
-			redirectAttributes.addFlashAttribute("errorMessage", "Log failed to store. Please try again.");
+			redirectAttributes.addFlashAttribute("errorMessage", 
+					"Log failed to store. Please try again.");
             return "redirect:/checkpoint/claimbay";
 		}
 		
-		redirectAttributes.addFlashAttribute("message", "Log recorded successfully");
+		redirectAttributes.addFlashAttribute("message", 
+				"Log recorded successfully");
         return "redirect:/checkpoint/claimbay";
 	}
 	
 	private CheckPoint getCheckPointByFlightNo(String flightNo, long checkPointTypeId)
 	{
-		String url = checkPointUrl + "/getCheckPointByFlightNoAndCheckPointTypeId?flightNo=" + flightNo + "&checkPointTypeId=" + checkPointTypeId;
+		String url = checkPointUrl + 
+				"/getCheckPointByFlightNoAndCheckPointTypeId?flightNo=" 
+				+ flightNo + "&checkPointTypeId=" + checkPointTypeId;
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<CheckPoint> response = restTemplate.getForEntity(url, CheckPoint.class);
+		ResponseEntity<CheckPoint> response = restTemplate
+				.getForEntity(url, CheckPoint.class);
 		
 		CheckPoint checkPoint = response.getBody();
 		
@@ -223,7 +246,8 @@ public class CheckPointViewController {
 		String url = luggageUrl + "/getLuggageByRFID?rfid=" + rfid;
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Luggage> response = restTemplate.getForEntity(url, Luggage.class);
+		ResponseEntity<Luggage> response = restTemplate
+				.getForEntity(url, Luggage.class);
 		
 		Luggage luggage = response.getBody();
 		

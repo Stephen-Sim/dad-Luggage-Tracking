@@ -22,15 +22,18 @@ public class PassengerFlightRestController {
 	
 	/**
 	 *  Method : GET
-	 * Retrieves the tracking information for luggage based on the flight number.
+	 * Retrieves the tracking information for luggage based on the 
+	 * flight number.
 	 * 
 	 * @param identityNo
 	 * @param flightNo
 	 * @return
 	 */
 	@GetMapping("/getPassengerFlight")
-	public PassengerFlight getPassengerFlightByIdentityNoAndFlightNo(String identityNo, String flightNo)
+	public PassengerFlight getPassengerFlightByIdentityNoAndFlightNo
+		(String identityNo, String flightNo)
 	{
-		return repo.findPassengerFlightByIdentityNoAndFlightNo(identityNo, flightNo);
+		return repo.findPassengerFlightByIdentityNoAndFlightNo(identityNo, 
+				flightNo);
 	}
 }

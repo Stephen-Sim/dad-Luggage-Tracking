@@ -21,11 +21,13 @@ public class LuggageViewController {
 	public String index(@PathVariable Integer passengerFlightId, Model model)
 	{
 		// The URI for GET luggage
-		String uri = this.url + "passengerFlight/" + passengerFlightId.toString();
+		String uri = this.url + "passengerFlight/" 
+				+ passengerFlightId.toString();
 		
 		// Get a list order types from the web service
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Luggage[]> response = restTemplate.getForEntity(uri, Luggage[].class);
+		ResponseEntity<Luggage[]> response = restTemplate
+				.getForEntity(uri, Luggage[].class);
 		
 		// Parse JSON data to array of object
 		Luggage luggages[] = response.getBody();

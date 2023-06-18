@@ -22,7 +22,8 @@ public class LuggageService {
 	private final LogRepository logRepo;
 	
 	@Autowired
-    public LuggageService(LuggageRepository luggageRepo, LogRepository logRepo, CheckPointRepository checkPointRepo) {
+    public LuggageService(LuggageRepository luggageRepo, LogRepository logRepo, 
+    		CheckPointRepository checkPointRepo) {
         this.luggageRepo = luggageRepo;
 		this.checkPointRepo = checkPointRepo;
         this.logRepo = logRepo;
@@ -33,10 +34,12 @@ public class LuggageService {
 		try
 		{
 			StatusType status = new StatusType();
-			Luggage luggage = luggageRepo.findById(log.getLuggage().getId()).orElseThrow();
+			Luggage luggage = luggageRepo.findById(log.getLuggage().getId())
+					.orElseThrow();
 			
 			// update the luggage status
-			if(luggage.getPassengerFlight().getFlight().getId() != log.getCheckPoint().getFlight().getId())
+			if(luggage.getPassengerFlight().getFlight().getId() != log
+					.getCheckPoint().getFlight().getId())
 			{
 				status.setId(8L);
 				
@@ -80,7 +83,9 @@ public class LuggageService {
 	                        luggage.setStatus(delayedStatus);
 	                        luggageRepo.save(luggage);
 	                        
-	                        var cp4CheckPiot = checkPointRepo.findCP4ByFlightId(luggage.getPassengerFlight().getFlight().getId());
+	                        var cp4CheckPiot = checkPointRepo
+	                        		.findCP4ByFlightId(luggage.getPassengerFlight()
+	                        				.getFlight().getId());
 	                        
 	                        Log mishandledLog = new Log();
 	        				mishandledLog.setDateTime(LocalDateTime.now());

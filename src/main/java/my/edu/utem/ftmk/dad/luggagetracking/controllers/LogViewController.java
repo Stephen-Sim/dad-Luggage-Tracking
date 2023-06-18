@@ -25,7 +25,8 @@ public class LogViewController {
 		
 		// Get a list order types from the web service
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Log[]> response = restTemplate.getForEntity(uri, Log[].class);
+		ResponseEntity<Log[]> response = restTemplate
+				.getForEntity(uri, Log[].class);
 		
 		// Parse JSON data to array of object
 		Log logs[] = response.getBody();
@@ -36,7 +37,8 @@ public class LogViewController {
 		model.addAttribute("logs", logsList);
 		
 		// The URI to GET luggage
-		uri = "http://localhost:8080/trackingapp/api/luggage/" +  luggageId.toString();
+		uri = "http://localhost:8080/trackingapp/api/luggage/" 
+				+  luggageId.toString();
 		Luggage luggage = restTemplate.getForObject(uri, Luggage.class);
 		
 		// Attach luggage to model as attribute
