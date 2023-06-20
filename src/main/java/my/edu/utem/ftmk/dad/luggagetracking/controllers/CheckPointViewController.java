@@ -19,8 +19,10 @@ import my.edu.utem.ftmk.dad.luggagetracking.models.StatusType;
 @Controller
 public class CheckPointViewController {
 
-	private final String checkPointUrl = "http://localhost:8080/trackingapp/api/checkpoint/";
-	private final String luggageUrl = "http://localhost:8080/trackingapp/api/luggage/";
+	private final String checkPointUrl = "http://localhost:8080/trackingapp"
+			+ "/api/checkpoint/";
+	private final String luggageUrl = "http://localhost:8080/trackingapp"
+			+ "/api/luggage/";
 	private final String logUrl = "http://localhost:8080/trackingapp/api/log/";
 	
 	@GetMapping("/checkpoint/truck")
@@ -29,9 +31,17 @@ public class CheckPointViewController {
 		return "checkpoints/truckCheckPoint";
 	}
 	
+	/**
+	 * This method displays checkpoint/truck.html
+	 * 
+	 * This method also check the form input
+	 * 
+	 * @return A web page
+	 */
 	@PostMapping("/checkpoint/truck/record")
 	public String truckRecord(@RequestParam("flightNo") String flightNo, 
-			@RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
+			@RequestParam("rfid") String rfid, 
+			RedirectAttributes redirectAttributes)
 	{
 		if (flightNo.isEmpty() || flightNo.isEmpty()) {
             // Set error message
@@ -164,12 +174,25 @@ public class CheckPointViewController {
         return "redirect:/checkpoint/handlinghub";
 	}
 	
+	/**
+	 * This method displays checkpoint/claimbay.html
+	 * 
+	 * 
+	 * @return A web page
+	 */
 	@GetMapping("/checkpoint/claimbay")
 	public String indexClaimBay()
 	{
 		return "checkpoints/claimbayCheckPoint";
 	}
 	
+	/**
+	 * This method displays checkpoint/claimbay.html
+	 * 
+	 * This method also check the form input
+	 * 
+	 * @return A web page
+	 */
 	@PostMapping("/checkpoint/claimbay/record")
 	public String claimBayRecord(@RequestParam("flightNo") String flightNo, 
 			@RequestParam("rfid") String rfid, RedirectAttributes redirectAttributes)
@@ -226,6 +249,13 @@ public class CheckPointViewController {
         return "redirect:/checkpoint/claimbay";
 	}
 	
+	/**
+	 * this method retrieves CheckPoint by Flight No
+	 * 
+	 * @param flightNo
+	 * @param checkPointTypeId
+	 * @return
+	 */
 	private CheckPoint getCheckPointByFlightNo(String flightNo, long checkPointTypeId)
 	{
 		String url = checkPointUrl + 
@@ -241,6 +271,13 @@ public class CheckPointViewController {
 		return checkPoint;
 	}
 	
+	/**
+	 * this method retrieves Luggage by RFID
+	 * 
+	 * @param flightNo
+	 * @param checkPointTypeId
+	 * @return
+	 */
 	private Luggage getLuggageByRFID(String rfid)
 	{
 		String url = luggageUrl + "/getLuggageByRFID?rfid=" + rfid;
@@ -254,6 +291,11 @@ public class CheckPointViewController {
 		return luggage;
 	}
 	
+	/**
+	 * This method displays checkpoint/unclaimAndMissing.html
+	 * 
+	 * @return A web page
+	 */
 	@GetMapping("/checkpoint/unclaimAndMissing")
 	private String indexUnclaimAndMissing()
 	{

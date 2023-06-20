@@ -84,7 +84,8 @@ public class LuggageService {
 	                        luggageRepo.save(luggage);
 	                        
 	                        var cp4CheckPiot = checkPointRepo
-	                        		.findCP4ByFlightId(luggage.getPassengerFlight()
+	                        		.findCP4ByFlightId(luggage
+	                        				.getPassengerFlight()
 	                        				.getFlight().getId());
 	                        
 	                        Log mishandledLog = new Log();

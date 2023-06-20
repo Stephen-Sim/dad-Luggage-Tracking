@@ -149,8 +149,10 @@ public class LuggageRestController {
 	    }
 	    
 	    try {
-	        List<Luggage> unclaimedLuggage = repo.findUnclaimedLuggage(flightNo);
-	        List<Luggage> missingLuggage = repo.findMissingLuggage(flightNo);
+	        List<Luggage> unclaimedLuggage = repo.
+	        		findUnclaimedLuggage(flightNo);
+	        List<Luggage> missingLuggage = repo
+	        		.findMissingLuggage(flightNo);
 	        
 	        Map<String, List<Luggage>> results = new HashMap<>();
 	        results.put("unclaimed", unclaimedLuggage);
@@ -164,7 +166,8 @@ public class LuggageRestController {
 	}
 	
 	/**
-	 * Retrieves the tracking information for luggage based on the flight number.
+	 * Retrieves the tracking information for luggage 
+	 * based on the flight number.
 	 * 
 	 * @param flightNo
 	 * @return
