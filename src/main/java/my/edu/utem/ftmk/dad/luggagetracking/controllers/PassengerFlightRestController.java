@@ -8,6 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 import my.edu.utem.ftmk.dad.luggagetracking.models.PassengerFlight;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.PassengerFlightRepository;
 
+/**
+ * This class represents a Spring MVC controller that handles the API
+ * endpoints for passenger flights.
+ * 
+ * @author simsh
+ *
+ */
 @RestController
 @RequestMapping("api/passengerFlight")
 public class PassengerFlightRestController {

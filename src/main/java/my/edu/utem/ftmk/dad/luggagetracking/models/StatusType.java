@@ -7,6 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * This class represents the StatusType entity, which corresponds to the 
+ * "StatusTypes" table in the database.
+ * 
+ * @author simsh
+ *
+ */
 @Entity
 @Table(name = "StatusTypes")
 public class StatusType {

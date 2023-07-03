@@ -13,10 +13,24 @@ import org.springframework.web.client.RestTemplate;
 import my.edu.utem.ftmk.dad.luggagetracking.models.Log;
 import my.edu.utem.ftmk.dad.luggagetracking.models.Luggage;
 
+/**
+ * This class is a controller class that handles requests related to logs
+ * in luggage tracking.
+ * 
+ * @author simsh
+ *
+ */
 @Controller
 public class LogViewController {
 	private final String url = "http://localhost:8080/trackingapp/api/log/";
 	
+	/**
+	 *  redirect to log/index.html
+	 * 
+	 * @param luggageId
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/log/{luggageId}")
 	public String index(@PathVariable Integer luggageId, Model model)
 	{

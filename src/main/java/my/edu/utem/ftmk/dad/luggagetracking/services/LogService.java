@@ -10,12 +10,24 @@ import my.edu.utem.ftmk.dad.luggagetracking.models.StatusType;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.CheckPointRepository;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.LogRepository;
 
+/**
+ * This class represents the LogService, which provides operations for 
+ * managing log entries in the luggage tracking system.
+ * 
+ * @author simsh
+ *
+ */
 @Service
 public class LogService {
 	
 	private final LogRepository repo;
 	private final CheckPointRepository checkPointRepo;
 	
+	/**
+	 * This method ....
+	 * @param repo
+	 * @param checkPointRepo
+	 */
 	public LogService(LogRepository repo, CheckPointRepository checkPointRepo)
 	{
 		this.repo = repo;

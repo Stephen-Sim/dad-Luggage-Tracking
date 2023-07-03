@@ -9,7 +9,8 @@ import my.edu.utem.ftmk.dad.luggagetracking.models.CheckPoint;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.CheckPointRepository;
 
 /**
- * This class is a RESTController class
+ * This class is a RESTController class that handles requests related to 
+ * checkpoints in luggage tracking.
  * 
  * @author simsh
  *

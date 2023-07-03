@@ -9,6 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * This class represents the Luggage entity, which corresponds to the 
+ * "Luggages" table in the database.
+ * 
+ * @author simsh
+ *
+ */
 @Entity
 @Table(name = "Luggages")
 public class Luggage {

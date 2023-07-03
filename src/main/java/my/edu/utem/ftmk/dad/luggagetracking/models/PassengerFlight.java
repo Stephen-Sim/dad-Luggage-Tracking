@@ -8,6 +8,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * This class represents the PassengerFlight entity, which corresponds to the 
+ * "PassengerFlights" table in the database.
+ * 
+ * @author simsh
+ *
+ */
 @Entity
 @Table(name = "PassengerFlights")
 public class PassengerFlight {

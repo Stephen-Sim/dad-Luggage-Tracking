@@ -12,6 +12,13 @@ import org.springframework.web.client.RestTemplate;
 
 import my.edu.utem.ftmk.dad.luggagetracking.models.Luggage;
 
+/**
+ * This class represents a Spring MVC controller that handles the view layer
+ * for luggage tracking.
+ * 
+ * @author simsh
+ *
+ */
 @Controller
 public class LuggageViewController {
 	

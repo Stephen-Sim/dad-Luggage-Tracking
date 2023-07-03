@@ -20,6 +20,13 @@ import my.edu.utem.ftmk.dad.luggagetracking.models.StatusType;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.LuggageRepository;
 import my.edu.utem.ftmk.dad.luggagetracking.services.LogService;
 
+/**
+ * This class represents a Spring Boot REST controller that handles various
+ * endpoints related to luggage tracking.
+ * 
+ * @author simsh
+ *
+ */
 @RestController
 @RequestMapping("api/luggage")
 public class LuggageRestController {

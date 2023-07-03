@@ -9,6 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * This class represents the Flight entity, which corresponds to the 
+ * "Flights" table in the database.
+ * 
+ * @author simsh
+ *
+ */
 @Entity
 @Table(name = "Flights")
 public class Flight {

@@ -9,6 +9,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+
+/**
+ * This class represents the CheckPoint entity, which corresponds to the 
+ * "CheckPoints" table in the database.
+ * 
+ * @author simsh
+ *
+ */
 @Entity
 @Table(name = "CheckPoints")
 public class CheckPoint {

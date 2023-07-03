@@ -14,6 +14,14 @@ import my.edu.utem.ftmk.dad.luggagetracking.repo.CheckPointRepository;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.LogRepository;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.LuggageRepository;
 
+/**
+ * This class represents the LuggageService, which provides operations for 
+ * managing luggage and updating its status based on log entries.
+ * 
+ * 
+ * @author simsh
+ *
+ */
 @Service
 public class LuggageService {
 	
@@ -29,6 +37,10 @@ public class LuggageService {
         this.logRepo = logRepo;
     }
 	
+	/**
+	 * This method is ....
+	 * @param log
+	 */
 	public void updateLuggageStatus(Log log)
 	{
 		try

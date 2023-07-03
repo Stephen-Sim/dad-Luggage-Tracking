@@ -11,6 +11,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * This class represents the Log entity, which corresponds to the 
+ * "Logs" table in the database.
+ * 
+ * @author simsh
+ *
+ */
 @Entity
 @Table(name = "Logs")
 public class Log {

@@ -16,6 +16,13 @@ import my.edu.utem.ftmk.dad.luggagetracking.models.Log;
 import my.edu.utem.ftmk.dad.luggagetracking.repo.LogRepository;
 import my.edu.utem.ftmk.dad.luggagetracking.services.LuggageService;
 
+/**
+ * This class is a RESTController class that handles requests related to 
+ * logs in luggage tracking.
+ * 
+ * @author simsh
+ *
+ */
 @RestController
 @RequestMapping("api/log")
 public class LogRestController {
@@ -29,20 +36,24 @@ public class LogRestController {
 		this.luggageService = luggageService;
 	}
 	
-	/*
+	/**
 	 * get the list of logs by the luggage id
 	 * 
-	 * */
+	 * @param luggageId
+	 * @return
+	 */
 	@GetMapping("{luggageId}")
 	public List<Log> getLogsByLuggageId(@PathVariable long luggageId)
 	{
 		return repo.findByLuggageId(luggageId);
 	}
 	
-	/*
+	/**
 	 * store the log to the database
 	 * 
-	 * */
+	 * @param log
+	 * @return
+	 */
 	@PostMapping("/storeLog")
 	public ResponseEntity<HttpStatus> storeLog(@RequestBody Log log)
 	{

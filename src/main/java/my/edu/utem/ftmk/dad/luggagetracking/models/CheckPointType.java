@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 /**
  * This class represents a check point type such as A-CP0, which A is for
- *  arrival
+ * arrival
  * @author simsh
  *
  */

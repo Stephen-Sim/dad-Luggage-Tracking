@@ -8,6 +8,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import my.edu.utem.ftmk.dad.luggagetracking.models.PassengerFlight;
 
+/**
+ * This class represents a Spring MVC controller that handles the views 
+ * and form submission for passenger flights.
+ * 
+ * @author simsh
+ *
+ */
 @Controller
 public class PassengerFlightViewController {
 

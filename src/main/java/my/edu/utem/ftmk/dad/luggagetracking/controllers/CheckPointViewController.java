@@ -16,6 +16,12 @@ import my.edu.utem.ftmk.dad.luggagetracking.models.Log;
 import my.edu.utem.ftmk.dad.luggagetracking.models.Luggage;
 import my.edu.utem.ftmk.dad.luggagetracking.models.StatusType;
 
+/**
+ * This class is a controller class that handles the views and actions related
+ * to checkpoints in luggage tracking.
+ * @author simsh
+ *
+ */
 @Controller
 public class CheckPointViewController {
 
